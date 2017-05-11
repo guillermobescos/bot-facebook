@@ -90,7 +90,7 @@ function receivedMessage(event) {
                 break;
             default:
                 if (userService.isUserKnown(senderID)){
-                    sendTextMessage(senderID, Meteo.getGeolocalisation("Palaiseau"));
+                    sendTextMessage(senderID, Meteo.getGeolocalisation('Palaiseau'));
 
                 }
                 else{sendTextMessage(senderID,'Hi Im Jacques Biot');
