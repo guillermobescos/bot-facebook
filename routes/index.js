@@ -25,6 +25,7 @@ app.get('/webhook', function(req, res) {
 
 app.get('/weather', function(req, res) {
     res.send();
+    Meteo.getGeolocalisation('Palaiseau');
     console.log("Validating weather");
 
 
@@ -90,7 +91,7 @@ function receivedMessage(event) {
                 break;
             default:
                 if (userService.isUserKnown(senderID)){
-                    sendTextMessage(senderID, Meteo.getGeolocalisation('Palaiseau'));
+                    sendTextMessage(senderID, messageText);
 
                 }
                 else{sendTextMessage(senderID,'Hi Im Jacques Biot');
