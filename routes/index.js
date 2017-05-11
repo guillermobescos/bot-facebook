@@ -108,7 +108,7 @@ function receivedMessage(event) {
                         Meteo.getWeatherForecast(location.lat, location.lng)
                             .then(function (body) {
                                 var weatherData = new WeatherData(body);
-                                var tempmax = res.send(weatherData[0].weather.main);
+                                var tempmax = weatherData[0].weather.main;
                                 sendTextMessage(senderID, tempmax);
                             });
                     })
