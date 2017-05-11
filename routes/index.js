@@ -3,8 +3,11 @@ const parser = require('json-parser');
 const app = express.Router();
 const config = require('config');
 const request = require('request');
+
 const userService = require('../server/userService');
 const Meteo = require('../server/weatherService');
+const WeatherData = require('../server/model/weatherData');
+
 // Get the config const
 const PAGE_ACCESS_TOKEN = config.get('pageAccessToken');
 const VERIFY_TOKEN = config.get('verifyToken');
@@ -25,20 +28,21 @@ app.get('/webhook', function(req, res) {
 });
 
 app.get('/weather', function(req, res) {
-    res.send();
-    Meteo.getGeolocalisation('Palaiseau')
+    Meteo.getGeolocalisation('Paris')
         .then(function(body) {
             var location = parser.parse(body).results[0].geometry.location;
 
-            weatherService.getWeatherForecast(location.lat, location.lng)
+            Meteo.getWeatherForecast(location.lat, location.lng)
                 .then(function (body) {
                     var weatherData = new WeatherData(body);
                     res.send(weatherData);
-
-    });
-    console.log("Validating weather");
-
-
+                });
+        })
+        .catch(function (err) {
+            console.error(err);
+            res.send(400);
+        })
+    ;
 });
 
 
@@ -97,7 +101,22 @@ function receivedMessage(event) {
                 sendGenericMessage(senderID);
                 break;
             case 'Coucou':
-                sendTextMessage(senderID, 'salut');
+                Meteo.getGeolocalisation('Paris')
+                    .then(function(body) {
+                        var location = parser.parse(body).results[0].geometry.location;
+
+                        Meteo.getWeatherForecast(location.lat, location.lng)
+                            .then(function (body) {
+                                var weatherData = new WeatherData(body);
+                                var tempmax = res.send(weatherData[0].weather.main);
+                                sendTextMessage(senderID, tempmax);
+                            });
+                    })
+                    .catch(function (err) {
+                        console.error(err);
+                        res.send(400);
+                    })
+                ;
                 break;
             default:
                 if (userService.isUserKnown(senderID)){
