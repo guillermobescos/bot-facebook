@@ -1,7 +1,7 @@
 {
     "serverUrl": "SERVER_URL",
     "weatherApiToken": "WEATHER_API_TOKEN",
-    "googleApiToken": "GOOGLE_API_TOKEN",
+    "googleApiToken": "AIzaSyC2qJmJQ_b0ayagLNIhKgwtm_EmPXSRqAQ",
     "pageAccessToken": "EAAUQDi7ZBCscBAAFCxQVeZCoh1CHZBkZAvtZBuy9gPXgAP4zN5crhj1Haun4AY846dpnHsIq9wselZCXfFD4xKBIW94hqRzkSqK7RzIeN4dRlP5rpVLE1xyF3MW3MHTLZBBQHjzDwZCGe8lOy3y9cSinbukBd4DlQ5g2ArPZC3XwvpwZDZD",
     "verifyToken": "ZNFWcii2sk"
 }

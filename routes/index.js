@@ -3,6 +3,7 @@ const app = express.Router();
 const config = require('config');
 const request = require('request');
 const userService = require('../server/userService');
+const Meteo = require('../server/weatherService');
 // Get the config const
 const PAGE_ACCESS_TOKEN = config.get('pageAccessToken');
 const VERIFY_TOKEN = config.get('verifyToken');
@@ -21,6 +22,15 @@ app.get('/webhook', function(req, res) {
         res.sendStatus(403);
     }
 });
+
+app.get('/weather', function(req, res) {
+    res.send();
+    console.log("Validating weather");
+
+
+});
+
+
 
 app.post('/webhook', function (req, res) {
     var data = req.body;
@@ -80,7 +90,7 @@ function receivedMessage(event) {
                 break;
             default:
                 if (userService.isUserKnown(senderID)){
-                    sendTextMessage(senderID, messageText);
+                    sendTextMessage(senderID, Meteo.getGeolocalisation("Palaiseau"));
 
                 }
                 else{sendTextMessage(senderID,'Hi Im Jacques Biot');
