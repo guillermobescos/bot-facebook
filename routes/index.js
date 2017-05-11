@@ -100,8 +100,8 @@ function receivedMessage(event) {
             case 'generic':
                 sendGenericMessage(senderID);
                 break;
-            case 'Coucou':
-                Meteo.getGeolocalisation('Paris')
+            case 'Meteoplatal':
+                Meteo.getGeolocalisation('Palaiseau')
                     .then(function(body) {
                         var location = parser.parse(body).results[0].geometry.location;
 
