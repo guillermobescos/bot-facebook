@@ -2,7 +2,7 @@ const express = require('express');
 const app = express.Router();
 const config = require('config');
 const request = require('request');
-
+const userService = require('../server/userService');
 // Get the config const
 const PAGE_ACCESS_TOKEN = config.get('pageAccessToken');
 const VERIFY_TOKEN = config.get('verifyToken');
@@ -79,7 +79,15 @@ function receivedMessage(event) {
                 sendTextMessage(senderID, 'salut');
                 break;
             default:
-                sendTextMessage(senderID, messageText);
+                if (userService.isUserKnown(senderID)){
+                    sendTextMessage(senderID, messageText);
+
+                }
+                else{sendTextMessage(senderID,'Hi Im Jacques Biot')
+                    userService.addUser(senderID,messageText);
+
+                }
+
         }
     } else if (messageAttachments) {
         sendTextMessage(senderID, "Message with attachment received");
