@@ -83,7 +83,7 @@ function receivedMessage(event) {
                     sendTextMessage(senderID, messageText);
 
                 }
-                else{sendTextMessage(senderID,'Hi Im Jacques Biot')
+                else{sendTextMessage(senderID,'Hi Im Jacques Biot');
                     userService.addUser(senderID,messageText);
 
                 }
