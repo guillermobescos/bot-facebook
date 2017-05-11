@@ -1,4 +1,5 @@
 const express = require('express');
+const parser = require('json-parser');
 const app = express.Router();
 const config = require('config');
 const request = require('request');
@@ -25,7 +26,16 @@ app.get('/webhook', function(req, res) {
 
 app.get('/weather', function(req, res) {
     res.send();
-    Meteo.getGeolocalisation('Palaiseau');
+    Meteo.getGeolocalisation('Palaiseau')
+        .then(function(body) {
+            var location = parser.parse(body).results[0].geometry.location;
+
+            weatherService.getWeatherForecast(location.lat, location.lng)
+                .then(function (body) {
+                    var weatherData = new WeatherData(body);
+                    res.send(weatherData);
+
+    });
     console.log("Validating weather");
 
 
